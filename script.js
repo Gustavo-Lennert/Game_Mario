@@ -39,8 +39,6 @@ function game(){
         }
     });
     
-    
-
     //Score function
     function startScore(){
         counter = setInterval(() =>{
@@ -58,7 +56,7 @@ function game(){
         const cloundPosition = +window.getComputedStyle(clound).left.replace('px', '');
 
         let masterPoints = secounds % 100
-        
+
         if(masterPoints == 0 && secounds > 99){
             score.style.animation = 'score-point 1.2s';
             setTimeout(() =>{
@@ -67,7 +65,6 @@ function game(){
             },1500)
             // if()
         }
-
 
         if(pipePosition <= 120 && pipePosition > 0 && marioPosition < 80){
 
