@@ -7,47 +7,72 @@ function game(){
     const gameOver = document.querySelector('.game-over');
     const pressContinue = document.querySelector('.continue');
     const score = document.querySelector('.value-score');
-    const pause = document.querySelector('.paused');
-    let pipePosition = pipe.offsetLeft;
+    const startGame = document.querySelector('.start-game');
+    const pipeAnimation = document.querySelector('.pipe-animation');
+
+    // const pause = document.querySelector('.paused');
+    
     let secounds = 0;
     let counter = 0;
+
+    pipe.classList.remove('pipe-animation');
 
     //Jump mario
     document.addEventListener("keydown", function(e){
         if(e.key === " "){
+            
+            if(!counter){
+                clearInterval(counter);
+                startScore();
+            }
+            
+            pipe.classList.add('pipe-animation');
+            startGame.style.display = "none";
             mario.classList.add('jump');
-        
-            //setTimeout -> executa apenas uma vez, assim que for chamada ou após um tempo passado por parâmetro
+
             setTimeout(() => {
-    
                 //Fuction for to remove jump class
                 mario.classList.remove('jump');
-    
+                
             }, 500);
+
         }
     });
+    
+    
 
+    //Score function
     function startScore(){
         counter = setInterval(() =>{
             // Secounds counter
-            secounds++;
+            secounds++; 
             score.innerHTML = secounds;
         }, 200);        
-    }
-        
-    startScore();
+    }    
 
-    //setInterval -> executa um loop durante o tempo passado por parâmetro
+    //Animation and  interaction of game elements
     const loop = setInterval(() => {
-          
-       let pipePosition = pipe.offsetLeft;
+        
+        const pipePosition = pipe.offsetLeft;
         const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
         const cloundPosition = +window.getComputedStyle(clound).left.replace('px', '');
+
+        let masterPoints = secounds % 100
+        
+        if(masterPoints == 0 && secounds > 99){
+            score.style.animation = 'score-point 1.2s';
+            setTimeout(() =>{
+                score.style.animation = 'none';
+                // pipe.style.animation = 'pipe-animation infinite 1.5s linear';
+            },1500)
+            // if()
+        }
+
 
         if(pipePosition <= 120 && pipePosition > 0 && marioPosition < 80){
 
             //Pause score
-            clearInterval(counter);        
+            clearInterval(counter);     
             floor.classList.remove('floor-animation');
             clound.classList.remove('clound-animation');
             clound.style.left = `${cloundPosition}px`;
@@ -74,9 +99,11 @@ function game(){
             }, 1500);
 
             //End of loop
-            clearInterval(loop);
+            clearInterval(loop);   
         }
     }, 10);
+     
 }
-//Chamada da função pai
+
+//Parent function
 game();
