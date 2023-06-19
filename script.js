@@ -18,7 +18,7 @@ function game(){
     pipe.classList.remove('pipe-animation');
 
     //Jump mario
-    document.addEventListener("keydown", function(e){
+    document.addEventListener("keypress", function(e){
         if(e.key === " "){
             
             if(!counter){
@@ -90,7 +90,7 @@ function game(){
             setTimeout(() => {
                 pressContinue.style.opacity = '1';
                 pressContinue.style.animation = 'continue-animation 1.5s infinite ease';
-                document.addEventListener('keydown', () =>{
+                document.addEventListener('keypress', () =>{
                     location.reload();
                 });
             }, 1500);
